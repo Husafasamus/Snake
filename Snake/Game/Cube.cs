@@ -12,11 +12,20 @@ namespace Snake.Game
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public Direction Facing { get; set; }
 
         public Position(int x, int y)
         {
             X = x;
             Y = y;
+            Facing = Direction.Up;
+        }
+
+        public Position(int x, int y, Direction direction)
+        {
+            X = x;
+            Y = y;
+            Facing = direction;
         }
     }
 
@@ -40,16 +49,33 @@ namespace Snake.Game
             Info = gameInfo;
         }
 
-        public void SetSnakeHead()
+        public void SetSnakeHead(Direction direction)
         {
             Info = GameInfo.SnakeHead;
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead.jpg", UriKind.Relative));
+            if (direction == Direction.Up)
+            {
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2.jpg", UriKind.Relative));
+            }
+            if (direction == Direction.Down)
+            {
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Down.jpg", UriKind.Relative));
+            }
+            if (direction == Direction.Right)
+            {
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Right.jpg", UriKind.Relative));
+            }
+            if (direction == Direction.Left)
+            {
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Left.jpg", UriKind.Relative));
+            }
+
         }
 
         public void SetSnakeBody()
         {
             Info = GameInfo.SnakeBody;
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody2.jpg", UriKind.Relative));
+            
         }
 
 

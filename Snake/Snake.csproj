@@ -8,14 +8,42 @@
 
   <ItemGroup>
     <None Remove="Game\Data\apple.jpg" />
+    <None Remove="Game\Data\nan - Copy - Copy.jpg" />
     <None Remove="Game\Data\nan.jpg" />
     <None Remove="Game\Data\snakeBody.jpg" />
+    <None Remove="Game\Data\snakeBody2.jpg" />
     <None Remove="Game\Data\snakeHead.jpg" />
+    <None Remove="Game\Data\snakeHead2.jpg" />
+    <None Remove="Game\Data\snakeHead2_Down.jpg" />
+    <None Remove="Game\Data\snakeHead2_Left.jpg" />
+    <None Remove="Game\Data\snakeHead2_Right.jpg" />
+    <None Remove="Game\Data\snakeHead3.jpg" />
     <None Remove="Game\Data\wall.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Game\Data\apple.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeBody2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\nan - Copy - Copy.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead2_Down.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead2_Left.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead2_Right.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead3.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Game\Data\wall.jpg">

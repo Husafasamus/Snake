@@ -36,7 +36,7 @@ namespace Snake.Game
             int x = 10;
             int y = 10;
 
-            Snake.AddBody(x, y);         
+            Snake.AddBody(x, y, _direction);         
         }
 
         public void GenerateBody()
@@ -62,17 +62,30 @@ namespace Snake.Game
         {           
             int x = Snake.GetHead().X;
             int y = Snake.GetHead().Y;
+            Direction newDirection = Snake.GetHead().Facing;
 
             if (_direction == Direction.Up)
-                y--;
+            { 
+                y--; 
+                newDirection = Direction.Up;
+            }
             if (_direction == Direction.Down)
+            {
                 y++;
+                newDirection = Direction.Down;
+            }
             if (_direction == Direction.Left)
+            {
                 x--;
+                newDirection = Direction.Left;
+            }
             if (_direction == Direction.Right)
+            {
                 x++;
-
-            UpdateSnakePosition(x, y);
+                newDirection = Direction.Right;
+            }
+                
+            UpdateSnakePosition(x, y, newDirection);
 
             return GameStatus;
         }
@@ -105,14 +118,14 @@ namespace Snake.Game
             return true;
         }
 
-        private bool UpdateSnakePosition(int x, int y)
+        private bool UpdateSnakePosition(int x, int y, Direction direction)
         {
             if (GameStatus)
             {
                 var tmpSnake = new Snake(Snake);
                 
 
-                Snake.UpDatePositions(x, y);
+                Snake.UpDatePositions(x, y, direction);
                 
                 GameStatus = Collision();
                 
@@ -127,7 +140,7 @@ namespace Snake.Game
                     GameField.gameField[pp.X, pp.Y].SetToNaN();
                 }
 
-                GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead();
+                GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead(direction);
                 if (Snake.Count() > 1)
                 {
                     for (int i = 1; i < Snake.Count(); i++)

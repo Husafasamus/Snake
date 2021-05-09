@@ -11,7 +11,7 @@ namespace Snake.Game
 
         private int x_lastAdd = 0;
         private int y_lastAdd = 0;
-
+        private Direction dir_lastAdd = Direction.Up;
 
         public Snake()
         {
@@ -32,20 +32,21 @@ namespace Snake.Game
             return _body[0];
         }
 
-        public void AddBody(int x=0, int y=0)
+        public void AddBody(int x=0, int y=0, Direction direction=Direction.Up)
         {
             if (_body.Count == 0)
             {
-                _body.Add(new Position(x, y));
+                _body.Add(new Position(x, y, direction));
                 return;
             }
-            _body.Add(new Position(x_lastAdd, y_lastAdd));
+            _body.Add(new Position(x_lastAdd, y_lastAdd, dir_lastAdd));
         }
 
-        public void UpDatePositions(int newX, int newY)
+        public void UpDatePositions(int newX, int newY, Direction direction)
         {
             x_lastAdd = GetEnd().X;
             y_lastAdd = GetEnd().Y;
+            dir_lastAdd = GetEnd().Facing;
 
             if (_body.Count > 1)
             {
@@ -53,11 +54,13 @@ namespace Snake.Game
                 {
                     _body[i].X = _body[i - 1].X;
                     _body[i].Y = _body[i - 1].Y;
+                    _body[i].Facing = _body[i - 1].Facing;
                 }
             }
 
             _body[0].X = newX;
             _body[0].Y = newY;
+            _body[0].Facing = direction;
         }
 
         public Position GetBody(int index)
