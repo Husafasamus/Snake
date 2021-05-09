@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="snakeHead.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Game\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="snakeHead.jpg" />
   </ItemGroup>
 
 </Project>

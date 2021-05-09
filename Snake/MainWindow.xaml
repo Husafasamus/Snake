@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="Snake" Height="800" Width="800">
     <Canvas Name="GameField" KeyDown="Canvas_KeyDown" KeyUp="Canvas_KeyUp" Focusable="True">
+        <Image Height="40"  Canvas.Left="227" Canvas.Top="431" Width="40" Source="/snakeHead.jpg"/>
         <!--<TextBlock Name="MenuTitleText" Canvas.Left="328" Canvas.Top="157" FontWeight="Bold" FontSize="50" Text="Snake" TextWrapping="Wrap" Height="73" Width="144"/>
         <Button Name="MenuStartButton" Content="Start new Game" Canvas.Left="350" Canvas.Top="235" Height="29" Width="100" Click="MenuStartButton_Click"/>
         <Button Name="MenuExitButton" Content="Exit" Canvas.Left="376" Canvas.Top="269" Width="48" Click="MenuExitButton_Click" Height="29"/>-->
-       
+
 
     </Canvas>
 </Window>

@@ -34,18 +34,21 @@ namespace Snake
         {      
             InitializeComponent();
 
-            //GameField.Focus();
             gameTimer.Tick += GameTimerEvent;
             gameTimer.Interval = TimeSpan.FromMilliseconds(350);
-            //Start();
             ShowMenu();
         }
 
 
-        private void ShowGameField()
+        private void ShowGameFieldStart()
         {
             game.Start();
-            for (int x = 0; x <  game.GameField.cRectanglesOnWidth; x++)
+            ShowGameField();
+        }
+
+        private void ShowGameField()
+        {
+            for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
             {
                 for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
                 {
@@ -54,7 +57,6 @@ namespace Snake
                     Canvas.SetTop(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Coordinates.Y * CubeHeight);
                 }
             }
-            
         }
 
         private void RefreshGameField()
@@ -83,6 +85,13 @@ namespace Snake
         {
             GameField.Focus();
             gameTimer.Start();
+            ShowGameFieldStart();
+        }
+
+        private void Play()
+        {
+            GameField.Focus();
+            gameTimer.Start();
             ShowGameField();
         }
 
@@ -94,7 +103,7 @@ namespace Snake
         private void Reset()
         {
             game.Reset();
-            Start();
+            game.Start();
         }
 
         private void AddBodySnake()
@@ -121,7 +130,8 @@ namespace Snake
 
             if (e.Key == Key.P) // Pause
             {
-                ShowMenu();
+                Pause();
+                ShowPauseMenu();
             }
 
             if (e.Key == Key.Escape)
@@ -133,7 +143,6 @@ namespace Snake
 
             }
                 
-
             if (e.Key == Key.R) // Pause
                 Reset();
         }
@@ -144,16 +153,32 @@ namespace Snake
 
         private void MenuExitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void MenuStartButton_Click(object sender, RoutedEventArgs e)
         {
-          //  MenuStartButton.IsEnabled = false;
-          //  MenuExitButton.IsEnabled = false;
-           // MenuTitleText.IsEnabled = false;
             Start();
+        }
 
+        private void PauseMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameField.Children.Clear();
+            Play();
+        }
+
+        private void ShowPauseMenu()
+        {
+            Button PauseResumeButton = new Button()
+            {
+                Content = "Resume",
+                Height = 29,
+                Width = 100
+            };
+            PauseResumeButton.Click += PauseMenuButton_Click;
+            GameField.Children.Add(PauseResumeButton);
+            Canvas.SetLeft(PauseResumeButton, 350);
+            Canvas.SetTop(PauseResumeButton, 235);
         }
 
         private void ShowMenu()
@@ -190,8 +215,9 @@ namespace Snake
             Canvas.SetTop(MenuTitleText, 157);
             Canvas.SetLeft(MenuTitleText, 328);
 
+
+            
+
         }
-
-
     }
 }

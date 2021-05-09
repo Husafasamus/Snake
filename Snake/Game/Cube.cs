@@ -83,8 +83,6 @@ namespace Snake.Game
 
             return new Cube(x, y, headRectangle, GameInfo.NaN);
         }
-
-
     }
 
     public enum GameInfo
