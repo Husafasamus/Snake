@@ -19,29 +19,45 @@ namespace Snake.Game
             return _body[0];
         }
 
-        public void AddBody(Position bodyPosition)
+        public void AddBody(int x=0, int y=0)
         {
-            _body.Add(bodyPosition);
+            if (_body.Count == 0)
+            {
+                _body.Add(new Position(x, y));
+                return;
+            }
+            _body.Add(new Position(GetEnd().X, GetEnd().Y));
         }
 
         public void UpDatePositions(int newX, int newY)
-        {
+        {                     
+            if (_body.Count > 1)
+            {
+                for (int i = _body.Count - 1; i > 0; i--)
+                {
+                    _body[i].X = _body[i - 1].X;
+                    _body[i].Y = _body[i - 1].Y;
+                }
+            }
+
             _body[0].X = newX;
             _body[0].Y = newY;
         }
-        
 
-    }
-
-    public class Position
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public Position(int x, int y)
+        public Position GetBody(int index)
         {
-            X = x;
-            Y = y;
+            return _body[index];
         }
+
+        public int Count()
+        {
+            return _body.Count;
+        }
+
+        public Position GetEnd()
+        {
+            return _body[_body.Count - 1];
+        }
+
     }
 }

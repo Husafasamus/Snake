@@ -31,17 +31,12 @@ namespace Snake.Game
             {
                 for (int y = 0; y < cRectanglesOnHeight; y++)
                 {
-                    Rectangle cubeRectangle = new Rectangle()
-                    {
-                        Width = CubeWidth,
-                        Height = CubeHeight,
-                        Fill = Brushes.Black
-                    };
-
-                    gameField[x, y] = new Cube(CubeWidth * x, CubeHeight * y, cubeRectangle, GameInfo.NaN);
+                    gameField[x, y] = Cube.GetNaN(x, y);
                 }
             }
         }
+
+        
 
         public void ResetField() 
         {

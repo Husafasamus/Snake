@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace Snake.Game
 {
@@ -25,20 +26,35 @@ namespace Snake.Game
         public void Start()
         {
             Snake = new Snake();
-            GenerateHead();
-
-
+            GenerateHead();  
         }
 
         private void GenerateHead()
+        {
+            // Random rnd = new Random();
+            //int x = rnd.Next(0, GameField.cRectanglesOnWidth);
+            //int y = rnd.Next(0, GameField.cRectanglesOnHeight);
+            int x = 10;
+            int y = 10;
+
+            Snake.AddBody(x, y);
+            
+        }
+
+        public void GenerateBody()
+        {
+            Snake.AddBody();
+        }
+
+        public void GenerateApple()
         {
             Random rnd = new Random();
             int x = rnd.Next(0, GameField.cRectanglesOnWidth);
             int y = rnd.Next(0, GameField.cRectanglesOnHeight);
 
-            Cube snakeHead = Cube.GetSnakeHead(x, y);
-            Snake.AddBody(new Position(x, y));
-            GameField.gameField[x, y] = snakeHead;
+            GameField.gameField[x, y].SetToApple();
+            
+
         }
 
         public void Update()
@@ -56,19 +72,40 @@ namespace Snake.Game
                 x++;
 
             UpdateSnakePosition(x, y);
+
+        }
+
+        private bool Collision()
+        {
+            var newHeadPos = Snake.GetHead();
+
+            if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Apple)
+            {
+                GenerateBody();
+            }
+
+            return false;
         }
 
         private void UpdateSnakePosition(int x, int y)
         {
-            var oldHeadPosition = Snake.GetHead();
-            GameField.gameField[oldHeadPosition.X, oldHeadPosition.Y].Info = GameInfo.NaN;
-            GameField.gameField[oldHeadPosition.X, oldHeadPosition.Y].Rect.Fill = Brushes.Black;
-
-            GameField.gameField[x, y].Info = GameInfo.SnakeHead;
-            GameField.gameField[x, y].Rect.Fill = Brushes.Purple;
+            for (int i = 0; i < Snake.Count(); i++)
+            {
+                var oldPos = Snake.GetBody(i);
+                GameField.gameField[oldPos.X, oldPos.Y].SetToNaN();
+            }
 
             Snake.UpDatePositions(x, y);
-
+            Collision();
+            GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead();
+            if (Snake.Count() > 1)
+            {
+                for (int i = 1; i < Snake.Count(); i++)
+                {
+                    var oldPos = Snake.GetBody(i);
+                    GameField.gameField[oldPos.X, oldPos.Y].SetSnakeBody();
+                }
+            }
         }
 
         public void Reset()
