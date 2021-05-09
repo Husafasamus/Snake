@@ -26,10 +26,7 @@ namespace Snake
         public const int Speed = 10;
         DispatcherTimer gameTimer = new DispatcherTimer();
 
-        bool isLeft = true;
-        bool isUp = false;
-        bool isDown = false;
-        bool isRight = false;
+       
 
         int xPos = 10;
         int yPos = 10;
@@ -38,10 +35,9 @@ namespace Snake
         int yPosb = 10;
 
 
-        //List<Rectangle> snake = new List<Rectangle>();
-        // GameField gameField = new GameField(Convert.ToInt32(Application.Current.MainWindow.Width),
-        //                                      Convert.ToInt32(Application.Current.MainWindow.Height));
-        GameField gameField = new GameField(800, 800);
+        //GameField gameField = new GameField(800, 800);
+        SnakeGame game = new SnakeGame(800, 800);
+
 
         public MainWindow()
         {      
@@ -57,28 +53,28 @@ namespace Snake
 
         private void ShowGameField()
         {
-            for (int x = 0; x < gameField.cRectanglesOnWidth; x++)
+            game.Start();
+            for (int x = 0; x <  game.GameField.cRectanglesOnWidth; x++)
             {
-                for (int y = 0; y < gameField.cRectanglesOnHeight; y++)
+                for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
                 {
-                    GameField.Children.Add(gameField.gameField[x, y].Rect);
-                    Canvas.SetLeft(gameField.gameField[x, y].Rect, gameField.gameField[x, y].X);
-                    Canvas.SetTop(gameField.gameField[x, y].Rect, gameField.gameField[x, y].Y);
+                    GameField.Children.Add(game.GameField.gameField[x, y].Rect);
+                    Canvas.SetLeft(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].X);
+                    Canvas.SetTop(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Y);
                 }
             }
-            gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple; // Snake Head
-            //gameField.gameField[xPosb, yPosb].Rect.Fill = Brushes.Blue;
+            
         }
 
-        private void UpdateGameField()
+        private void RefreshGameField()
         {
-            for (int x = 0; x < gameField.cRectanglesOnWidth; x++)
+            game.Update();
+            for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
             {
-                for (int y = 0; y < gameField.cRectanglesOnHeight; y++)
+                for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
                 {
-                    //GameField.Children.Add(gameField.gameField[x, y].Rect);
-                    Canvas.SetLeft(gameField.gameField[x, y].Rect, gameField.gameField[x, y].X);
-                    Canvas.SetTop(gameField.gameField[x, y].Rect, gameField.gameField[x, y].Y);
+                    Canvas.SetLeft(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].X);
+                    Canvas.SetTop(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Y);
                 }
             }
         }
@@ -86,32 +82,34 @@ namespace Snake
 
         private void GameTimerEvent(object sender, EventArgs e)
         {
-            if (isLeft)
-            {
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
-                xPos -= 1;
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
-            }
-            if (isRight)
-            {
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
-                xPos += 1;
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
-            }
-            if (isUp)
-            {
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
-                yPos -= 1;
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
-            }
-            if (isDown)
-            {
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
-                yPos += 1;
-                gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
-            }
+            RefreshGameField();
+            //game.GameField.gameField[xPosb, yPosb].Rect.Fill = Brushes.Blue;
+            //if (isLeft)
+            //{
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
+            //    xPos -= 1;
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
+            //}
+            //if (isRight)
+            //{
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
+            //    xPos += 1;
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
+            //}
+            //if (isUp)
+            //{
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
+            //    yPos -= 1;
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
+            //}
+            //if (isDown)
+            //{
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Blue;
+            //    yPos += 1;
+            //    gameField.gameField[xPos, yPos].Rect.Fill = Brushes.Purple;
+            //}
 
-            UpdateGameField();
+            //UpdateGameField();
             //gameField.gameField[xPosb, yPosb].Rect.Fill = Brushes.Black;
             //if (isLeft)
             //{
@@ -135,6 +133,7 @@ namespace Snake
             //    Canvas.SetLeft(snake[0], Canvas.GetLeft(snake[0]) + SnakeSpeed);
             //    this.SetSnakesBodyRight();
             //}
+
         }
 
 
@@ -207,35 +206,19 @@ namespace Snake
         {
             if (e.Key == Key.Left)
             {
-                isLeft = true;
-
-                isUp = false;
-                isRight = false;
-                isDown = false;
+                game.SetDirection(Direction.Left);
             }
             if (e.Key == Key.Up)
             {
-                isUp = true;
-
-                isLeft = false;
-                isRight = false;
-                isDown = false;
+                game.SetDirection(Direction.Up);
             }
             if (e.Key == Key.Right)
             {
-                isRight = true;
-
-                isLeft = false;
-                isUp = false;
-                isDown = false;
+                game.SetDirection(Direction.Right);
             }
             if (e.Key == Key.Down)
             {
-                isDown = true;
-
-                isLeft = false;
-                isUp = false;
-                isRight = false;
+                game.SetDirection(Direction.Down);
             }
 
 

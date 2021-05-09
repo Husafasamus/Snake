@@ -15,7 +15,6 @@ namespace Snake.Game
         public int cRectanglesOnHeight;
 
         public Cube[,] gameField { get; set; }
-        //private Cube[,] gameField = null;
 
         public GameField(int width, int height)
         {
@@ -42,6 +41,11 @@ namespace Snake.Game
                     gameField[x, y] = new Cube(CubeWidth * x, CubeHeight * y, cubeRectangle, GameInfo.NaN);
                 }
             }
+        }
+
+        public void ResetField() 
+        {
+            InitalizeGameField();
         }
     }
 }
