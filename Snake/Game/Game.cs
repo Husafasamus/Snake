@@ -28,6 +28,7 @@ namespace Snake.Game
             Snake = new Snake();
             GenerateHead();
             GenerateApple();
+            GenerateWall();
         }
 
         private void GenerateHead()
@@ -41,6 +42,11 @@ namespace Snake.Game
         public void GenerateBody()
         {
             Snake.AddBody();
+        }
+
+        public void GenerateWall()
+        {
+            GameField.gameField[5, 5].SetToWall();
         }
 
         public void GenerateApple()
@@ -91,6 +97,11 @@ namespace Snake.Game
                 return false;
             }
 
+            if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Wall)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -115,7 +126,6 @@ namespace Snake.Game
                     var pp = tmpSnake.GetBody(i);
                     GameField.gameField[pp.X, pp.Y].SetToNaN();
                 }
-
 
                 GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead();
                 if (Snake.Count() > 1)

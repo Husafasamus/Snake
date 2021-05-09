@@ -31,7 +31,7 @@ namespace Snake.Game
             {
                 for (int y = 0; y < cRectanglesOnHeight; y++)
                 {
-                    gameField[x, y] = Cube.GetNaN(x, y);
+                    gameField[x, y] = Cube.GetNaNImage(x, y);
                 }
             }
         }

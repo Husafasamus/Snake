@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Snake.Game
@@ -20,15 +22,18 @@ namespace Snake.Game
 
     public class Cube
     {
+
+        public const string HeadImage = "/snakeHead.jpg";
+
         public const int CubeWidth = 40;
         public const int CubeHeight = 40;
 
         public Position Coordinates { get; }
 
         public GameInfo Info { get; set; }
-        public Rectangle Rect { get; set; }
+        public Image Rect { get; set; }
 
-        public Cube(int x, int y, Rectangle rect, GameInfo gameInfo)
+        public Cube(int x, int y, Image rect, GameInfo gameInfo)
         {
             Coordinates = new Position(x, y);
             Rect = rect;
@@ -38,50 +43,47 @@ namespace Snake.Game
         public void SetSnakeHead()
         {
             Info = GameInfo.SnakeHead;
-            Rect.Fill = Brushes.Purple;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead.jpg", UriKind.Relative));
         }
 
         public void SetSnakeBody()
         {
             Info = GameInfo.SnakeBody;
-            Rect.Fill = Brushes.Blue;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));
         }
 
 
         public void SetToNaN()
         {
             Info = GameInfo.NaN;
-            Rect.Fill = Brushes.Black;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/nan.jpg", UriKind.Relative));
         }
 
         public void SetToApple()
         {
             Info = GameInfo.Apple;
-            Rect.Fill = Brushes.Red;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/apple.jpg", UriKind.Relative));
         }
 
-        public static Cube GetSnakeHead(int x, int y)
+        public void SetToWall()
         {
-            Rectangle headRectangle =  new Rectangle()
+            Info = GameInfo.Wall;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/wall.jpg", UriKind.Relative));
+        }
+
+
+        public static Cube GetNaNImage(int x, int y)
+        {
+            Image headimage = new Image()
             {
                 Width = CubeWidth,
                 Height = CubeHeight,
-                Fill = Brushes.Purple
+                
             };
 
-            return new Cube(x, y, headRectangle, GameInfo.SnakeHead);
-        }
+            headimage.Source = new BitmapImage(new Uri("/Game/Data/nan.jpg", UriKind.Relative));
 
-        public static Cube GetNaN(int x, int y)
-        {
-            Rectangle headRectangle = new Rectangle()
-            {
-                Width = CubeWidth,
-                Height = CubeHeight,
-                Fill = Brushes.Black
-            };
-
-            return new Cube(x, y, headRectangle, GameInfo.NaN);
+            return new Cube(x, y, headimage, GameInfo.NaN);
         }
     }
 

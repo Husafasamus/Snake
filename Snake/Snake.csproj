@@ -7,15 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="snakeHead.jpg" />
+    <None Remove="Game\Data\apple.jpg" />
+    <None Remove="Game\Data\nan.jpg" />
+    <None Remove="Game\Data\snakeBody.jpg" />
+    <None Remove="Game\Data\snakeHead.jpg" />
+    <None Remove="Game\Data\wall.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="snakeHead.jpg" />
+    <Resource Include="Game\Data\apple.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\wall.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\nan.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeBody.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snakeHead.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

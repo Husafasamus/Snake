@@ -83,6 +83,7 @@ namespace Snake
 
         private void Start()
         {
+            GameField.Children.Clear();
             GameField.Focus();
             gameTimer.Start();
             ShowGameFieldStart();
