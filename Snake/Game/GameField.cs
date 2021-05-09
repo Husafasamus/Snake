@@ -36,8 +36,6 @@ namespace Snake.Game
             }
         }
 
-        
-
         public void ResetField() 
         {
             InitalizeGameField();

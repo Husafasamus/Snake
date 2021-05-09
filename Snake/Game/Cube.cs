@@ -91,6 +91,7 @@ namespace Snake.Game
     { 
         NaN,
         Wall,
+        Snail,
         Apple,
         Poison,
         Dynamite,

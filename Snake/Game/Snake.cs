@@ -9,9 +9,22 @@ namespace Snake.Game
     {
         private List<Position> _body;
 
+        private int x_lastAdd = 0;
+        private int y_lastAdd = 0;
+
+
         public Snake()
         {
             _body = new List<Position>();
+        }
+
+        public Snake(Snake other)
+        {
+            _body = new List<Position>();
+            for (int i = 0; i < other.Count(); i++)
+            {
+                _body.Add(new Position(other.GetBody(i).X, other.GetBody(i).Y));
+            }
         }
 
         public Position GetHead()
@@ -26,11 +39,14 @@ namespace Snake.Game
                 _body.Add(new Position(x, y));
                 return;
             }
-            _body.Add(new Position(GetEnd().X, GetEnd().Y));
+            _body.Add(new Position(x_lastAdd, y_lastAdd));
         }
 
         public void UpDatePositions(int newX, int newY)
-        {                     
+        {
+            x_lastAdd = GetEnd().X;
+            y_lastAdd = GetEnd().Y;
+
             if (_body.Count > 1)
             {
                 for (int i = _body.Count - 1; i > 0; i--)

@@ -11,10 +11,9 @@ namespace Snake.Game
 {
     public class SnakeGame
     {
-        //private GameField _gameField;
-        //private List<Cube> _gameItems;
         private Direction _direction;
-   
+     
+        public bool GameStatus { get; set; }
         public Snake Snake { get; set; }
         public GameField GameField { get; set; }
 
@@ -25,20 +24,18 @@ namespace Snake.Game
 
         public void Start()
         {
+            GameStatus = true;
             Snake = new Snake();
-            GenerateHead();  
+            GenerateHead();
+            GenerateApple();
         }
 
         private void GenerateHead()
         {
-            // Random rnd = new Random();
-            //int x = rnd.Next(0, GameField.cRectanglesOnWidth);
-            //int y = rnd.Next(0, GameField.cRectanglesOnHeight);
             int x = 10;
             int y = 10;
 
-            Snake.AddBody(x, y);
-            
+            Snake.AddBody(x, y);         
         }
 
         public void GenerateBody()
@@ -53,12 +50,10 @@ namespace Snake.Game
             int y = rnd.Next(0, GameField.cRectanglesOnHeight);
 
             GameField.gameField[x, y].SetToApple();
-            
-
         }
 
-        public void Update()
-        {
+        public bool Update()
+        {           
             int x = Snake.GetHead().X;
             int y = Snake.GetHead().Y;
 
@@ -73,43 +68,74 @@ namespace Snake.Game
 
             UpdateSnakePosition(x, y);
 
+            return GameStatus;
         }
 
         private bool Collision()
         {
             var newHeadPos = Snake.GetHead();
 
+            if (newHeadPos.X < 0 || newHeadPos.X >= GameField.cRectanglesOnWidth ||
+                    newHeadPos.Y < 0 || newHeadPos.Y >= GameField.cRectanglesOnHeight)
+            {
+                return false;
+            }
+
             if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Apple)
             {
                 GenerateBody();
+                GenerateApple();
+            }
+            if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.SnakeBody)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool UpdateSnakePosition(int x, int y)
+        {
+            if (GameStatus)
+            {
+                var tmpSnake = new Snake(Snake);
+                
+
+                Snake.UpDatePositions(x, y);
+                
+                GameStatus = Collision();
+                
+                if (!GameStatus)
+                {
+                    return false;
+                }
+
+                for (int i = 0; i < tmpSnake.Count(); i++)
+                {
+                    var pp = tmpSnake.GetBody(i);
+                    GameField.gameField[pp.X, pp.Y].SetToNaN();
+                }
+
+
+                GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead();
+                if (Snake.Count() > 1)
+                {
+                    for (int i = 1; i < Snake.Count(); i++)
+                    {
+                        var oldPos = Snake.GetBody(i);
+                        GameField.gameField[oldPos.X, oldPos.Y].SetSnakeBody();
+                    }
+                }
+
+                return true;
             }
 
             return false;
         }
 
-        private void UpdateSnakePosition(int x, int y)
-        {
-            for (int i = 0; i < Snake.Count(); i++)
-            {
-                var oldPos = Snake.GetBody(i);
-                GameField.gameField[oldPos.X, oldPos.Y].SetToNaN();
-            }
-
-            Snake.UpDatePositions(x, y);
-            Collision();
-            GameField.gameField[Snake.GetHead().X, Snake.GetHead().Y].SetSnakeHead();
-            if (Snake.Count() > 1)
-            {
-                for (int i = 1; i < Snake.Count(); i++)
-                {
-                    var oldPos = Snake.GetBody(i);
-                    GameField.gameField[oldPos.X, oldPos.Y].SetSnakeBody();
-                }
-            }
-        }
-
         public void Reset()
         {
+            Snake = new Snake();
             GameField.ResetField();
         }
 
