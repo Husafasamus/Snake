@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Resources;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -184,41 +185,50 @@ namespace Snake
 
         private void ShowMenu()
         {
+            StackPanel menuPanel = new StackPanel();
+            GameField.Children.Add(menuPanel);
+
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri("/Game/Data/Menu/snake2.jpg", UriKind.Relative));
+            menuPanel.Children.Add(img);
+
+            GameField.Background = Brushes.Black;
             Button MenuStartButton = new Button()
             {
                 Content = "Start new Game",
-                Height = 29,
-                Width = 100
+                Height = 50,
+                Width = 130
             };
+            MenuStartButton.FontWeight = FontWeights.Bold;   
+            MenuStartButton.FontSize = 16;
+            MenuStartButton.Foreground = Brushes.White;
+            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172,  30));
+            MenuStartButton.Background = brush;
+            MenuStartButton.BorderThickness = new Thickness(0);
             MenuStartButton.Click += MenuStartButton_Click;
-            GameField.Children.Add(MenuStartButton);
-            Canvas.SetLeft(MenuStartButton, 350);
-            Canvas.SetTop(MenuStartButton, 235);
-
+            menuPanel.Children.Add(MenuStartButton);
             Button MenuExitButton = new Button()
             {
                 Content = "Exit",
-                Height = 29,
-                Width = 48
+                Height = 30,
+                Width = 50
             };
+            MenuExitButton.FontWeight = FontWeights.Bold;
+            MenuExitButton.FontSize = 16;
+            MenuExitButton.BorderThickness = new Thickness(0);
+            MenuExitButton.Foreground = Brushes.White;
+            MenuExitButton.Background = Brushes.Red;
             MenuExitButton.Click += MenuExitButton_Click;
-            GameField.Children.Add(MenuExitButton);
-            Canvas.SetTop(MenuExitButton, 269);
-            Canvas.SetLeft(MenuExitButton, 376);
+            menuPanel.Children.Add(MenuExitButton);
+            MenuStartButton.Margin = new Thickness(5);
 
-            TextBlock MenuTitleText = new TextBlock()
-            {
-                Text = "Snake",
-                FontSize = 50,
-                FontWeight = FontWeights.Bold
-            };
-            GameField.Children.Add(MenuTitleText);
-            Canvas.SetTop(MenuTitleText, 157);
-            Canvas.SetLeft(MenuTitleText, 328);
+            MenuExitButton.Margin = new Thickness(5);
+            Canvas.SetLeft(menuPanel, 40);
+            Canvas.SetTop(menuPanel, 0);
 
-
-            
 
         }
+
+
     }
 }

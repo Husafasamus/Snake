@@ -54,19 +54,19 @@ namespace Snake.Game
             Info = GameInfo.SnakeHead;
             if (direction == Direction.Up)
             {
-                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2.jpg", UriKind.Relative));
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead4.jpg", UriKind.Relative));
             }
             if (direction == Direction.Down)
             {
-                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Down.jpg", UriKind.Relative));
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead4_Down.jpg", UriKind.Relative));
             }
             if (direction == Direction.Right)
             {
-                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Right.jpg", UriKind.Relative));
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead4_Right.jpg", UriKind.Relative));
             }
             if (direction == Direction.Left)
             {
-                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead2_Left.jpg", UriKind.Relative));
+                Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeHead4_Left.jpg", UriKind.Relative));
             }
 
         }
@@ -74,7 +74,7 @@ namespace Snake.Game
         public void SetSnakeBody()
         {
             Info = GameInfo.SnakeBody;
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody2.jpg", UriKind.Relative));
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));
             
         }
 
@@ -88,7 +88,7 @@ namespace Snake.Game
         public void SetToApple()
         {
             Info = GameInfo.Apple;
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/apple.jpg", UriKind.Relative));
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/jablko.png", UriKind.Relative));
         }
 
         public void SetToWall()
@@ -106,6 +106,7 @@ namespace Snake.Game
                 Height = CubeHeight,
                 
             };
+            
 
             headimage.Source = new BitmapImage(new Uri("/Game/Data/nan.jpg", UriKind.Relative));
 
