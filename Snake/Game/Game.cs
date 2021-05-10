@@ -94,12 +94,7 @@ namespace Snake.Game
         {
             var newHeadPos = Snake.GetHead();
 
-            if (newHeadPos.X < 0 || newHeadPos.X >= GameField.cRectanglesOnWidth ||
-                    newHeadPos.Y < 0 || newHeadPos.Y >= GameField.cRectanglesOnHeight)
-            {
-                return false;
-            }
-
+            
             if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Apple)
             {
                 GenerateBody();

@@ -58,6 +58,15 @@ namespace Snake.Game
                 }
             }
 
+            if (newX == -1)
+                newX = 19;
+            if (newX == 20)
+                newX = 0;
+            if (newY == -1)
+                newY = 19;
+            if (newY == 20)
+                newY = 0;
+
             _body[0].X = newX;
             _body[0].Y = newY;
             _body[0].Facing = direction;
