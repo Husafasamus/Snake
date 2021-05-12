@@ -7,6 +7,8 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Linq;
 
+
+// TODO: 6. Refactoring
 namespace Snake.Game
 {
     public class SnakeGame
@@ -52,11 +54,37 @@ namespace Snake.Game
         public void GenerateApple()
         {
             Random rnd = new Random();
-            int x = rnd.Next(0, GameField.cRectanglesOnWidth);
-            int y = rnd.Next(0, GameField.cRectanglesOnHeight);
+            int x = 0;
+            int y = 0;
+
+            while (true)
+            {
+                x = rnd.Next(0, GameField.cRectanglesOnWidth);
+                y = rnd.Next(0, GameField.cRectanglesOnHeight);
+
+                if (GetGameInfo(x, y) == GameInfo.NaN)
+                    break;
+            }
 
             GameField.gameField[x, y].SetToApple();
         }
+
+        private GameInfo GetGameInfo(int x, int y)
+        {
+            return GameField.gameField[x, y].Info;
+        }
+
+
+        // TODO: 2. Dokoncit Generovanie Snail
+        public void GenerateSnail()
+        {
+
+        }
+
+       
+
+
+        //TODO: 5. Generate enemy
 
         public bool Update()
         {           
@@ -93,7 +121,6 @@ namespace Snake.Game
         private bool Collision()
         {
             var newHeadPos = Snake.GetHead();
-
             
             if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Apple)
             {

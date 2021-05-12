@@ -43,7 +43,7 @@ namespace Snake
             InitializeComponent();
 
             gameTimer.Tick += GameTimerEvent;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(300);
+            gameTimer.Interval = TimeSpan.FromMilliseconds(350);
             ShowMenu();
         }
 
@@ -181,12 +181,21 @@ namespace Snake
             Play();
         }
 
+        private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Pause();
+            GameField.Children.Clear();
+            game.Reset();
+            ShowMenu();
+        }
+
+        // TODO: Gameover menu
+
         private void ShowPauseMenu()
         {
 
             StackPanel pausePanel = new StackPanel();
             
-
             Button PauseResumeButton = new Button()
             {
                 Content = "Resume",
@@ -200,32 +209,56 @@ namespace Snake
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
             PauseResumeButton.Background = brush;
             PauseResumeButton.BorderThickness = new Thickness(0);
+            PauseResumeButton.Margin = new Thickness(5);
 
             Button ExitButton = new Button()
             {
                 Content = "Exit",
-                Height = 29,
+                Height = 30,
                 Width = 100
             };
-            PauseResumeButton.Click += ;
             PauseResumeButton.FontWeight = FontWeights.Bold;
             PauseResumeButton.FontSize = 16;
             PauseResumeButton.Foreground = Brushes.White;
-            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
             PauseResumeButton.Background = brush;
             PauseResumeButton.BorderThickness = new Thickness(0);
-
-
             pausePanel.Children.Add(PauseResumeButton);
-            
+
+
+            Button MenuExitButton = new Button()
+            {
+                Content = "Back to menu",
+                Height = 30,
+                Width = 105
+            };
+            MenuExitButton.FontWeight = FontWeights.Bold;
+            MenuExitButton.FontSize = 16;
+            MenuExitButton.BorderThickness = new Thickness(0);
+            MenuExitButton.Foreground = Brushes.White;
+            brush = new SolidColorBrush(Color.FromArgb(255, 224, 25, 25));
+            MenuExitButton.Background = brush;
+            MenuExitButton.Click += BackToMenuButton_Click;
+            pausePanel.Children.Add(MenuExitButton);
+
+            MenuExitButton.Margin = new Thickness(5);
+
+
+
+
+
+
             GameField.Children.Add(pausePanel);
             pausePanel.Width = 150;
-            pausePanel.Height = 150;
-            pausePanel.Background = Brushes.Red;
-            pausePanel.Opacity = 0.5;
-            Canvas.SetLeft(pausePanel, 350);
-            Canvas.SetTop(pausePanel, 235);
+            pausePanel.Height = 80;
+            brush = new SolidColorBrush(Color.FromArgb(255, 105, 76, 46));
+            pausePanel.Background = brush;
+            Canvas.SetLeft(pausePanel, ((GameField.ActualWidth - pausePanel.ActualWidth) / 2) - 60);
+            Canvas.SetTop(pausePanel, ((GameField.ActualHeight - pausePanel.ActualHeight) / 2) - 20);
         }
+
+        
+
+        // TODO: Fix menu to center
 
         private void ShowMenu()
         {
@@ -267,8 +300,8 @@ namespace Snake
             MenuStartButton.Margin = new Thickness(5);
 
             MenuExitButton.Margin = new Thickness(5);
-            Canvas.SetLeft(menuPanel, 40);
-            Canvas.SetTop(menuPanel, 0);
+            Canvas.SetLeft(menuPanel, ((GameField.ActualWidth - menuPanel.Width ) / 2));
+            Canvas.SetTop(menuPanel, ((GameField.ActualHeight - menuPanel.Height) / 2));
         }
 
         private void ShowCounter()

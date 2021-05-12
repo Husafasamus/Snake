@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <None Remove="Game\Data\apple.jpg" />
+    <None Remove="Game\Data\enemy2.png" />
     <None Remove="Game\Data\jablko.png" />
     <None Remove="Game\Data\Menu\snake2.jpg" />
     <None Remove="Game\Data\Menu\SnakeButton.JPG" />
     <None Remove="Game\Data\Menu\snakeMenuImage.jpg" />
     <None Remove="Game\Data\nan - Copy - Copy.jpg" />
+    <None Remove="Game\Data\nan - Copy.jpg" />
     <None Remove="Game\Data\nan.jpg" />
     <None Remove="Game\Data\snakeBody.jpg" />
     <None Remove="Game\Data\snakeBody2.jpg" />
@@ -33,6 +35,9 @@
     <Resource Include="Game\Data\apple.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Game\Data\enemy2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Game\Data\jablko.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -43,6 +48,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Game\Data\Menu\snakeMenuImage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\nan - Copy.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Game\Data\snakeBody2.jpg">
