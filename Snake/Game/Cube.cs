@@ -76,6 +76,12 @@ namespace Snake.Game
             Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));         
         }
 
+        public void SetToEnemy()
+        {
+            Info = GameInfo.Wall;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/enemy2.png", UriKind.Relative));
+        }
+
         public void SetToNaN()
         {
             Info = GameInfo.NaN;
@@ -91,9 +97,7 @@ namespace Snake.Game
         public void SetToWall()
         {
             Info = GameInfo.Wall;
-            //Rect.Source = new BitmapImage(new Uri("/Game/Data/wall.jpg", UriKind.Relative));
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/enemy2.png", UriKind.Relative));
-
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/wall.jpg", UriKind.Relative));
         }
 
 

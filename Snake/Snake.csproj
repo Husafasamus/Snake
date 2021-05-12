@@ -29,6 +29,7 @@
     <None Remove="Game\Data\snakeHead4_Left.jpg" />
     <None Remove="Game\Data\snakeHead4_Right.jpg" />
     <None Remove="Game\Data\wall.jpg" />
+    <None Remove="ScoreBoard.csv" />
   </ItemGroup>
 
   <ItemGroup>

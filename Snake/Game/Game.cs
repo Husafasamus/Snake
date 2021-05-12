@@ -18,10 +18,15 @@ namespace Snake.Game
         public bool GameStatus { get; set; }
         public Snake Snake { get; set; }
         public GameField GameField { get; set; }
+        public Enemy Enemy { get; set; }
+        public Enemy Enemy2 { get; set; }
+        public ScoreBoard scoreBoard;
+
 
         public SnakeGame(int width, int height)
         {
-            GameField = new GameField(width, height);          
+            GameField = new GameField(width, height);
+            scoreBoard = new ScoreBoard();
         }
 
         public void Start()
@@ -31,6 +36,7 @@ namespace Snake.Game
             GenerateHead();
             GenerateApple();
             GenerateWall();
+            GenerateEnemy();
         }
 
         private void GenerateHead()
@@ -49,6 +55,12 @@ namespace Snake.Game
         public void GenerateWall()
         {
             GameField.gameField[5, 5].SetToWall();
+            GameField.gameField[5, 6].SetToWall();
+            GameField.gameField[6, 5].SetToWall();
+            GameField.gameField[6, 6].SetToWall();
+
+
+
         }
 
         public void GenerateApple()
@@ -81,10 +93,58 @@ namespace Snake.Game
 
         }
 
-       
 
 
-        //TODO: 5. Generate enemy
+
+        
+        public void GenerateEnemy()
+        {
+            Enemy = new Enemy();
+            Enemy.SetPosition(0, 0);
+            GameField.gameField[Enemy.Place.X, Enemy.Place.Y].SetToEnemy();
+
+            Enemy2 = new Enemy();
+            Enemy2.SetPosition(19, 19);
+            GameField.gameField[Enemy2.Place.X, Enemy2.Place.Y].SetToEnemy();
+        }
+
+        public void UpdateEnemyPosition()
+        {
+
+            GameField.gameField[Enemy.Place.X, Enemy.Place.Y].SetToNaN();
+            int x = Enemy.Place.X += 1;
+            Enemy.SetPosition(x, Enemy.Place.Y);
+            if (GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.Apple)
+            {
+                GenerateApple();
+            }
+
+            if (GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.SnakeBody ||
+                GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.SnakeHead)
+            {
+                Enemy.Break = true;
+            }
+
+
+                GameField.gameField[Enemy.Place.X, Enemy.Place.Y].SetToEnemy();
+
+            GameField.gameField[Enemy2.Place.X, Enemy2.Place.Y].SetToNaN();
+            x = Enemy2.Place.X -= 1;
+            Enemy2.SetPosition(x, Enemy2.Place.Y);
+            if (GetGameInfo(Enemy2.Place.X, Enemy2.Place.Y) == GameInfo.Apple)
+            {
+                GenerateApple();
+            }
+            if (GetGameInfo(Enemy2.Place.X, Enemy2.Place.Y) == GameInfo.SnakeBody ||
+                GetGameInfo(Enemy2.Place.X, Enemy2.Place.Y) == GameInfo.SnakeHead)
+            {
+                Enemy2.Break = true;
+            }
+            GameField.gameField[Enemy2.Place.X, Enemy2.Place.Y].SetToEnemy();
+
+        }
+
+        
 
         public bool Update()
         {           
@@ -112,7 +172,7 @@ namespace Snake.Game
                 x++;
                 newDirection = Direction.Right;
             }
-                
+
             UpdateSnakePosition(x, y, newDirection);
 
             return GameStatus;
@@ -137,8 +197,16 @@ namespace Snake.Game
                 return false;
             }
 
+            if (Enemy.Break || Enemy2.Break)
+            {
+                return false;
+            }
+            
+
             return true;
         }
+
+
 
         private bool UpdateSnakePosition(int x, int y, Direction direction)
         {
