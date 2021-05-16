@@ -13,7 +13,11 @@ namespace Snake.Game
 {
     public class SnakeGame
     {
+        private const int SubSpeed = 20;
+        private const int IncSpeed = 50;
+
         private Direction _direction;
+        private int countEatedForSnail = 0;
      
         public bool GameStatus { get; set; }
         public Snake Snake { get; set; }
@@ -21,12 +25,15 @@ namespace Snake.Game
         public Enemy Enemy { get; set; }
         public Enemy Enemy2 { get; set; }
         public ScoreBoard scoreBoard;
+        public int SpeedMS { get; set; }
+        public Snail Snail { get; set; }
 
 
         public SnakeGame(int width, int height)
         {
             GameField = new GameField(width, height);
             scoreBoard = new ScoreBoard();
+            SpeedMS = 350;
         }
 
         public void Start()
@@ -37,6 +44,7 @@ namespace Snake.Game
             GenerateApple();
             GenerateWall();
             GenerateEnemy();
+            GenerateSnail();
         }
 
         private void GenerateHead()
@@ -50,6 +58,12 @@ namespace Snake.Game
         public void GenerateBody()
         {
             Snake.AddBody();
+            countEatedForSnail++;
+            if (countEatedForSnail == 3)
+            {
+                countEatedForSnail = 0;           
+                GenerateSnail();
+            }
         }
 
         public void GenerateWall()
@@ -58,9 +72,6 @@ namespace Snake.Game
             GameField.gameField[5, 6].SetToWall();
             GameField.gameField[6, 5].SetToWall();
             GameField.gameField[6, 6].SetToWall();
-
-
-
         }
 
         public void GenerateApple()
@@ -87,16 +98,26 @@ namespace Snake.Game
         }
 
 
-        // TODO: 2. Dokoncit Generovanie Snail
         public void GenerateSnail()
         {
+            Random rnd = new Random();
+            int x = 0;
+            int y = 0;
 
+            while (true)
+            {
+                x = rnd.Next(0, GameField.cRectanglesOnWidth);
+                y = rnd.Next(0, GameField.cRectanglesOnHeight);
+
+                if (GetGameInfo(x, y) == GameInfo.NaN)
+                    break;
+            }
+
+            Snail = new Snail();
+            Snail.SetPosition(x, y);
+            GameField.gameField[Snail.Place.X, Snail.Place.Y].SetToSnail();
         }
 
-
-
-
-        
         public void GenerateEnemy()
         {
             Enemy = new Enemy();
@@ -118,6 +139,10 @@ namespace Snake.Game
             {
                 GenerateApple();
             }
+            if (GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.Snail)
+            {
+                GenerateSnail();
+            }
 
             if (GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.SnakeBody ||
                 GetGameInfo(Enemy.Place.X, Enemy.Place.Y) == GameInfo.SnakeHead)
@@ -126,7 +151,7 @@ namespace Snake.Game
             }
 
 
-                GameField.gameField[Enemy.Place.X, Enemy.Place.Y].SetToEnemy();
+            GameField.gameField[Enemy.Place.X, Enemy.Place.Y].SetToEnemy();
 
             GameField.gameField[Enemy2.Place.X, Enemy2.Place.Y].SetToNaN();
             x = Enemy2.Place.X -= 1;
@@ -186,6 +211,7 @@ namespace Snake.Game
             {
                 GenerateBody();
                 GenerateApple();
+                SpeedMS -= SubSpeed;
             }
             if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.SnakeBody)
             {
@@ -196,6 +222,11 @@ namespace Snake.Game
             {
                 return false;
             }
+            if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Snail)
+            {
+                SpeedMS += IncSpeed;
+            }
+
 
             if (Enemy.Break || Enemy2.Break)
             {
@@ -255,6 +286,12 @@ namespace Snake.Game
         public void SetDirection(Direction newDirection)
         {
             _direction = newDirection;
+        }
+
+        public void AddPlayerToScoreBoard(string player, int size)
+        {
+            scoreBoard.AddPlayerScore(player, size);
+            scoreBoard.PrintToCsv();
         }
     }
 

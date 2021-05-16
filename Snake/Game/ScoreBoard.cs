@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Text;
+using System.Linq;
 
 namespace Snake.Game
 {
@@ -46,11 +48,26 @@ namespace Snake.Game
 
         public void AddPlayerScore(string name, int size)
         {
+            if (scoreBoard.Count > 39)
+            {
+                var lastPlayer = this.scoreBoard.OrderBy(x => x.GetSize()).FirstOrDefault();
+                if (size > lastPlayer.GetSize())
+                {
+                    int i = this.scoreBoard.FindLastIndex(x => x.GetSize() == lastPlayer.GetSize() && x.GetName() == lastPlayer.GetName());
+                    scoreBoard[i] = new PlayerScore(name, size);
+                }
+                return;
+            }
             scoreBoard.Add(new PlayerScore(name, size));
         }
 
-        public List<PlayerScore> GetScoreBoard()
+        public IEnumerable<PlayerScore> GetSortedByScore()
         {
+            return this.scoreBoard.OrderByDescending(x => x.GetSize());
+        }
+
+        public List<PlayerScore> GetScoreBoard()
+        {    
             return scoreBoard;
         }
 
@@ -76,8 +93,15 @@ namespace Snake.Game
         }
 
         public void PrintToCsv()
-        { 
-            
+        {
+            using (StreamWriter outputFile = new StreamWriter("ScoreBoard.txt"))
+            {
+                outputFile.WriteLine("player;score");
+                foreach (var player in this.GetSortedByScore())
+                {
+                    outputFile.WriteLine($"{player.GetName()};{player.GetSize()}");
+                }
+            }
         }
     }
 }

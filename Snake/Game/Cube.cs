@@ -82,6 +82,12 @@ namespace Snake.Game
             Rect.Source = new BitmapImage(new Uri("/Game/Data/enemy2.png", UriKind.Relative));
         }
 
+        public void SetToSnail()
+        {
+            Info = GameInfo.Snail;
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snail.jpg", UriKind.Relative));
+        }
+
         public void SetToNaN()
         {
             Info = GameInfo.NaN;

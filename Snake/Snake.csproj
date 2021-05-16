@@ -16,6 +16,7 @@
     <None Remove="Game\Data\nan - Copy - Copy.jpg" />
     <None Remove="Game\Data\nan - Copy.jpg" />
     <None Remove="Game\Data\nan.jpg" />
+    <None Remove="Game\Data\snail.jpg" />
     <None Remove="Game\Data\snakeBody.jpg" />
     <None Remove="Game\Data\snakeBody2.jpg" />
     <None Remove="Game\Data\snakeHead.jpg" />
@@ -52,6 +53,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Game\Data\nan - Copy.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Game\Data\snail.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Game\Data\snakeBody2.jpg">

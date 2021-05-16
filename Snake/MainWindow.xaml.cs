@@ -26,7 +26,6 @@ namespace Snake
         public const int CubeWidth = 40;
         public const int CubeHeight = 40;
 
-        
         DispatcherTimer gameTimer = new DispatcherTimer();
         DispatcherTimer gameTimer1 = new DispatcherTimer();
 
@@ -40,12 +39,18 @@ namespace Snake
             FontWeight = FontWeights.Bold
         };
 
+        TextBox textPlayer = new TextBox()
+        {
+            Text = "name"
+        };
+
+
         public MainWindow()
         {      
             InitializeComponent();
 
             gameTimer.Tick += GameTimerEvent;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(350);
+            gameTimer.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
 
             gameTimer1.Tick += GameTimer1Event;
             gameTimer1.Interval = TimeSpan.FromMilliseconds(250);
@@ -81,7 +86,8 @@ namespace Snake
             {
                 Pause();
             }
-            
+            gameTimer.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
+
             for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
             {
                 for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
@@ -143,7 +149,6 @@ namespace Snake
             gameTimer.Stop();
             gameTimer1.Stop();
             ShowGameOver();
-
         }
 
         private void Reset()
@@ -154,42 +159,48 @@ namespace Snake
 
         private void AddBodySnake()
         {
+            //snakeTimerInterval -= 5;
+            //gameTimer.Interval = TimeSpan.FromMilliseconds(snakeTimerInterval);
             game.GenerateApple();
         }
 
         private void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
-                game.SetDirection(Direction.Left);
-            
-            if (e.Key == Key.Up)
-                game.SetDirection(Direction.Up);   
-            
-            if (e.Key == Key.Right)    
-                game.SetDirection(Direction.Right);
-     
-            if (e.Key == Key.Down)
-                game.SetDirection(Direction.Down);
-
-            if (e.Key == Key.H) // Add Apple
-                AddBodySnake();
-
-            if (e.Key == Key.P) // Pause
+            if (game.GameStatus)
             {
-                Pause();
-                ShowPauseMenu();
-            }
+                if (e.Key == Key.Left)
+                    game.SetDirection(Direction.Left);
 
-            if (e.Key == Key.Escape)
-            {
-                Pause();
-                GameField.Children.Clear();
-                game.Reset();
-                ShowMenu();
+                if (e.Key == Key.Up)
+                    game.SetDirection(Direction.Up);
+
+                if (e.Key == Key.Right)
+                    game.SetDirection(Direction.Right);
+
+                if (e.Key == Key.Down)
+                    game.SetDirection(Direction.Down);
+
+                if (e.Key == Key.H) // Add Apple
+                    AddBodySnake();
+
+                if (e.Key == Key.P) // Pause
+                {
+                    ShowPauseMenu();
+                    gameTimer.Stop();
+                    gameTimer1.Stop();
+                }
+
+                if (e.Key == Key.Escape)
+                {
+                    Pause();
+                    GameField.Children.Clear();
+                    game.Reset();
+                    ShowMenu();
+                }
+
+                if (e.Key == Key.R) // Pause
+                    Reset();
             }
-                
-            if (e.Key == Key.R) // Pause
-                Reset();
         }
 
         private void Canvas_KeyUp(object sender, KeyEventArgs e)
@@ -226,16 +237,9 @@ namespace Snake
             ShowScoreBoard();
         }
 
-
-
-        private void ShowGameOver()
-        {
-            ShowPauseMenu();
-        }
-
         private void ShowScoreBoard()
         {
-            GameField.Background = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
+            //GameField.Background = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
             
             StackPanel scorePanel = new StackPanel();
             //SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 105, 76, 46));
@@ -254,13 +258,13 @@ namespace Snake
             txt.Foreground = new SolidColorBrush(Colors.White);
             scorePanel.Children.Add(txt);
 
-            var scoreBoard = game.scoreBoard.GetScoreBoard();
-
-            for (int i = 0; i < scoreBoard.Count; i++)
+            var scoreBoard = game.scoreBoard.GetSortedByScore();
+            int position = 1;
+            foreach (var item in scoreBoard)
             {
                 TextBlock playerScor_ = new TextBlock()
                 {
-                    Text = $"{i+1}. {scoreBoard[i]}",
+                    Text = $"{position++}. {item}",
                     FontSize = 14,
                     FontWeight = FontWeights.Bold
                 };
@@ -268,6 +272,7 @@ namespace Snake
                 scorePanel.Children.Add(playerScor_);
             }
 
+           
             Button BackButton = new Button()
             {
                 Content = "Back to menu",
@@ -289,10 +294,84 @@ namespace Snake
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            GameField.Children.Clear();
             ShowMenu();
         }
 
-        // TODO: Gameover menu
+        private void ShowGameOver()
+        {
+            StackPanel gameOverPanel = new StackPanel();
+
+            TextBlock textGameOver = new TextBlock()
+            {
+                Text = "Game Over :(",
+            };
+            textGameOver.FontSize = 22;
+            textGameOver.FontWeight = FontWeights.Bold;
+            textGameOver.Foreground = Brushes.Red;
+            gameOverPanel.Children.Add(textGameOver);
+
+            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
+
+            textPlayer = new TextBox()
+            {
+                Text = "name"
+            };
+            textPlayer.FontSize = 22;
+            textPlayer.FontWeight = FontWeights.Bold;
+            textPlayer.Foreground = brush;
+            gameOverPanel.Children.Add(textPlayer);
+
+            Button MenuAddPlayer = new Button()
+            {
+                Content = "Add to Board",
+                Height = 30,
+                Width = 135
+            };
+            MenuAddPlayer.FontWeight = FontWeights.Bold;
+            MenuAddPlayer.FontSize = 16;
+            MenuAddPlayer.BorderThickness = new Thickness(0);
+            MenuAddPlayer.Foreground = Brushes.White;
+            brush = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
+            MenuAddPlayer.Background = brush;
+            MenuAddPlayer.Click += AddToBoardButton_Click;
+
+            gameOverPanel.Children.Add(MenuAddPlayer);
+
+            Button MenuExitButton = new Button()
+            {
+                Content = "Back to menu",
+                Height = 30,
+                Width = 105
+            };
+            MenuExitButton.FontWeight = FontWeights.Bold;
+            MenuExitButton.FontSize = 16;
+            MenuExitButton.BorderThickness = new Thickness(0);
+            MenuExitButton.Foreground = Brushes.White;
+            brush = new SolidColorBrush(Color.FromArgb(255, 224, 25, 25));
+            MenuExitButton.Background = brush;
+            MenuExitButton.Click += BackToMenuButton_Click;
+
+            gameOverPanel.Children.Add(MenuExitButton);
+
+            GameField.Children.Add(gameOverPanel);
+
+            Canvas.SetLeft(gameOverPanel, ((GameField.ActualWidth - gameOverPanel.ActualWidth) / 2) - 60);
+            Canvas.SetTop(gameOverPanel, ((GameField.ActualHeight - gameOverPanel.ActualHeight) / 2) - 20);
+        }
+
+        private void AddToBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!textPlayer.Text.Equals("name"))
+            {
+                game.AddPlayerToScoreBoard(textPlayer.Text, game.Snake.Count() - 1);
+                Pause();
+                GameField.Children.Clear();
+                game.Reset();
+                ShowMenu();
+            }
+                
+        }
 
         private void ShowPauseMenu()
         {
