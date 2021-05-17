@@ -1,34 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Snake.Game
 {
-    public class Position
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public Direction Facing { get; set; }
-
-        public Position(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Facing = Direction.Up;
-        }
-
-        public Position(int x, int y, Direction direction)
-        {
-            X = x;
-            Y = y;
-            Facing = direction;
-        }
-    }
-
     public class Cube
     {
 
@@ -73,7 +48,7 @@ namespace Snake.Game
         public void SetSnakeBody()
         {
             Info = GameInfo.SnakeBody;
-            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));         
+            Rect.Source = new BitmapImage(new Uri("/Game/Data/snakeBody.jpg", UriKind.Relative));
         }
 
         public void SetToEnemy()
@@ -113,9 +88,9 @@ namespace Snake.Game
             {
                 Width = CubeWidth,
                 Height = CubeHeight,
-                
+
             };
-            
+
 
             headimage.Source = new BitmapImage(new Uri("/Game/Data/nan.jpg", UriKind.Relative));
 
@@ -124,7 +99,7 @@ namespace Snake.Game
     }
 
     public enum GameInfo
-    { 
+    {
         NaN,
         Wall,
         Snail,

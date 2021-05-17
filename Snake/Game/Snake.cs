@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Media;
+﻿using System.Collections.Generic;
 
 namespace Snake.Game
 {
@@ -32,7 +29,7 @@ namespace Snake.Game
             return _body[0];
         }
 
-        public void AddBody(int x=0, int y=0, Direction direction=Direction.Up)
+        public void AddBody(int x = 0, int y = 0, Direction direction = Direction.Up)
         {
             if (_body.Count == 0)
             {

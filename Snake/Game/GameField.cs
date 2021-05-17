@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Media;
-using System.Windows.Shapes;
-
-namespace Snake.Game
+﻿namespace Snake.Game
 {
     public class GameField
     {
         public const int CubeWidth = 40;
         public const int CubeHeight = 40;
 
-        public int cRectanglesOnWidth;
-        public int cRectanglesOnHeight;
+        private int cRectanglesOnWidth;
+        private int cRectanglesOnHeight;
 
         public Cube[,] gameField { get; set; }
 
@@ -36,7 +30,17 @@ namespace Snake.Game
             }
         }
 
-        public void ResetField() 
+        public int GetRectanglesOnWidth()
+        {
+            return cRectanglesOnWidth;
+        }
+
+        public int GetRectanglesOnHeight()
+        {
+            return cRectanglesOnHeight;
+        }
+
+        public void ResetField()
         {
             InitalizeGameField();
         }

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Snake.Game.Position">
+    <Position X="8" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Game\Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.Cube">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAIABAAAAEAAEAAJCIAQAAAQAAAAECAAAI=</HashCode>
+      <FileName>Game\Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.Enemy">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAEAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
+      <FileName>Game\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.Snake">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAABAAAAIIACAIAAAAAAQAAAAAAAAAAAAAAIAAGAA=</HashCode>
+      <FileName>Game\Snake.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.Snail">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
+      <FileName>Game\Snail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.PlayerScore">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAIABAA=</HashCode>
+      <FileName>Game\ScoreBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.ScoreBoard">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAABEAAAAAIBAAAAAAAAAAAAAAAAgABA=</HashCode>
+      <FileName>Game\ScoreBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.GameField">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEAAAAAAAAAAAAAAAAAAAAAEAIAAAABQAAgAAAAAAA=</HashCode>
+      <FileName>Game\GameField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake.Game.SnakeGame">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgQgACEKAABAAIAAEgEoAAAAEIAACAABCIEAQEgAA=</HashCode>
+      <FileName>Game\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Snake.Game.GameInfo">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAIACAAABAAAAAAAAAAEAAAQAAAAAABgAAAA=</HashCode>
+      <FileName>Game\Cube.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Snake.Game.Direction">
+    <Position X="1.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Game\Game.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

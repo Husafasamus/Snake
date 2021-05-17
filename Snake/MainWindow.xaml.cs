@@ -1,19 +1,10 @@
 ﻿using Snake.Game;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Resources;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Snake
@@ -26,9 +17,8 @@ namespace Snake
         public const int CubeWidth = 40;
         public const int CubeHeight = 40;
 
-        DispatcherTimer gameTimer = new DispatcherTimer();
-        DispatcherTimer gameTimer1 = new DispatcherTimer();
-
+        DispatcherTimer gameTimerSnake = new DispatcherTimer();
+        DispatcherTimer gameTimerEnemy = new DispatcherTimer();
 
         SnakeGame game = new SnakeGame(800, 800);
 
@@ -46,14 +36,14 @@ namespace Snake
 
 
         public MainWindow()
-        {      
+        {
             InitializeComponent();
 
-            gameTimer.Tick += GameTimerEvent;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
+            gameTimerSnake.Tick += GameTimerEvent;
+            gameTimerSnake.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
 
-            gameTimer1.Tick += GameTimer1Event;
-            gameTimer1.Interval = TimeSpan.FromMilliseconds(250);
+            gameTimerEnemy.Tick += GameTimer1Event;
+            gameTimerEnemy.Interval = TimeSpan.FromMilliseconds(250);
 
             ShowMenu();
         }
@@ -69,9 +59,9 @@ namespace Snake
         {
             ShowCounter();
 
-            for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
+            for (int x = 0; x < game.GameField.GetRectanglesOnWidth(); x++)
             {
-                for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
+                for (int y = 0; y < game.GameField.GetRectanglesOnHeight(); y++)
                 {
                     GameField.Children.Add(game.GameField.gameField[x, y].Rect);
                     Canvas.SetLeft(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Coordinates.X * CubeWidth);
@@ -86,11 +76,11 @@ namespace Snake
             {
                 Pause();
             }
-            gameTimer.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
+            gameTimerSnake.Interval = TimeSpan.FromMilliseconds(game.SpeedMS);
 
-            for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
+            for (int x = 0; x < game.GameField.GetRectanglesOnWidth(); x++)
             {
-                for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
+                for (int y = 0; y < game.GameField.GetRectanglesOnHeight(); y++)
                 {
                     Canvas.SetLeft(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Coordinates.X * CubeWidth);
                     Canvas.SetTop(game.GameField.gameField[x, y].Rect, (game.GameField.gameField[x, y].Coordinates.Y * CubeHeight) + CubeHeight);
@@ -101,9 +91,9 @@ namespace Snake
         private void RefreshGameFieldEnemys()
         {
             game.UpdateEnemyPosition();
-            for (int x = 0; x < game.GameField.cRectanglesOnWidth; x++)
+            for (int x = 0; x < game.GameField.GetRectanglesOnWidth(); x++)
             {
-                for (int y = 0; y < game.GameField.cRectanglesOnHeight; y++)
+                for (int y = 0; y < game.GameField.GetRectanglesOnHeight(); y++)
                 {
                     Canvas.SetLeft(game.GameField.gameField[x, y].Rect, game.GameField.gameField[x, y].Coordinates.X * CubeWidth);
                     Canvas.SetTop(game.GameField.gameField[x, y].Rect, (game.GameField.gameField[x, y].Coordinates.Y * CubeHeight) + CubeHeight);
@@ -130,24 +120,24 @@ namespace Snake
             ShowCounter();
             GameField.Children.Clear();
             GameField.Focus();
-            gameTimer.Start();
-            gameTimer1.Start();
+            gameTimerSnake.Start();
+            gameTimerEnemy.Start();
             ShowGameFieldStart();
         }
 
         private void Play()
         {
             GameField.Focus();
-            gameTimer.Start();
-            gameTimer1.Start();
+            gameTimerSnake.Start();
+            gameTimerEnemy.Start();
 
             ShowGameField();
         }
 
         private void Pause()
         {
-            gameTimer.Stop();
-            gameTimer1.Stop();
+            gameTimerSnake.Stop();
+            gameTimerEnemy.Stop();
             ShowGameOver();
         }
 
@@ -186,8 +176,8 @@ namespace Snake
                 if (e.Key == Key.P) // Pause
                 {
                     ShowPauseMenu();
-                    gameTimer.Stop();
-                    gameTimer1.Stop();
+                    gameTimerSnake.Stop();
+                    gameTimerEnemy.Stop();
                 }
 
                 if (e.Key == Key.Escape)
@@ -204,7 +194,7 @@ namespace Snake
         }
 
         private void Canvas_KeyUp(object sender, KeyEventArgs e)
-        { 
+        {
         }
 
         private void MenuExitButton_Click(object sender, RoutedEventArgs e)
@@ -240,7 +230,7 @@ namespace Snake
         private void ShowScoreBoard()
         {
             //GameField.Background = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
-            
+
             StackPanel scorePanel = new StackPanel();
             //SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 105, 76, 46));
             //scorePanel.Background = brush;
@@ -272,7 +262,7 @@ namespace Snake
                 scorePanel.Children.Add(playerScor_);
             }
 
-           
+
             Button BackButton = new Button()
             {
                 Content = "Back to menu",
@@ -370,13 +360,13 @@ namespace Snake
                 game.Reset();
                 ShowMenu();
             }
-                
+
         }
 
         private void ShowPauseMenu()
         {
             StackPanel pausePanel = new StackPanel();
-            
+
             Button PauseResumeButton = new Button()
             {
                 Content = "Resume",
@@ -432,7 +422,7 @@ namespace Snake
             Canvas.SetTop(pausePanel, ((GameField.ActualHeight - pausePanel.ActualHeight) / 2) - 20);
         }
 
-        
+
 
         // TODO: Fix menu to center
 
@@ -452,10 +442,10 @@ namespace Snake
                 Height = 50,
                 Width = 130
             };
-            MenuStartButton.FontWeight = FontWeights.Bold;   
+            MenuStartButton.FontWeight = FontWeights.Bold;
             MenuStartButton.FontSize = 16;
             MenuStartButton.Foreground = Brushes.White;
-            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172,  30));
+            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
             MenuStartButton.Background = brush;
             MenuStartButton.BorderThickness = new Thickness(0);
             MenuStartButton.Click += MenuStartButton_Click;
@@ -463,7 +453,7 @@ namespace Snake
 
             Button MenuScoreBoardButton = new Button()
             {
-                Content = "Score Board", 
+                Content = "Score Board",
                 Height = 50,
                 Width = 130
             };
@@ -491,11 +481,11 @@ namespace Snake
             MenuStartButton.Margin = new Thickness(5);
 
             MenuExitButton.Margin = new Thickness(5);
-            Canvas.SetLeft(menuPanel, ((GameField.ActualWidth - menuPanel.Width ) / 2));
+            Canvas.SetLeft(menuPanel, ((GameField.ActualWidth - menuPanel.Width) / 2));
             Canvas.SetTop(menuPanel, ((GameField.ActualHeight - menuPanel.Height) / 2));
         }
 
-        
+
 
         private void ShowCounter()
         {
@@ -505,7 +495,7 @@ namespace Snake
             Canvas.SetLeft(counter, 5);
         }
 
-        
+
 
 
     }

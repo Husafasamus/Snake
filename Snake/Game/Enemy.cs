@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Snake.Game
+﻿namespace Snake.Game
 {
     public class Enemy
     {
         public Position Place { get; set; }
-        GameInfo gameInfo = GameInfo.Wall;
         public bool Break { get; set; }
 
         public Enemy()

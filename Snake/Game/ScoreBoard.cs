@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
-using System.Text;
 using System.Linq;
 
 namespace Snake.Game
@@ -38,7 +35,7 @@ namespace Snake.Game
 
     public class ScoreBoard
     {
-        List<PlayerScore> scoreBoard = null;
+        private List<PlayerScore> scoreBoard = null;
 
         public ScoreBoard()
         {
@@ -67,7 +64,7 @@ namespace Snake.Game
         }
 
         public List<PlayerScore> GetScoreBoard()
-        {    
+        {
             return scoreBoard;
         }
 
@@ -78,7 +75,7 @@ namespace Snake.Game
             {
                 tmp += $"{i}." + scoreBoard[i].ToString() + "\n";
             }
-            
+
             return tmp;
         }
 

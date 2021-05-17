@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Snake.Game
+﻿namespace Snake.Game
 {
     public class Snail
     {
         public Position Place { get; set; }
-        GameInfo gameInfo = GameInfo.Wall;
 
         public Snail()
         {

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using System.Linq;
 
 
 // TODO: 6. Refactoring
@@ -18,7 +11,7 @@ namespace Snake.Game
 
         private Direction _direction;
         private int countEatedForSnail = 0;
-     
+
         public bool GameStatus { get; set; }
         public Snake Snake { get; set; }
         public GameField GameField { get; set; }
@@ -33,7 +26,7 @@ namespace Snake.Game
         {
             GameField = new GameField(width, height);
             scoreBoard = new ScoreBoard();
-            SpeedMS = 350;
+            SpeedMS = 250;
         }
 
         public void Start()
@@ -52,7 +45,7 @@ namespace Snake.Game
             int x = 10;
             int y = 10;
 
-            Snake.AddBody(x, y, _direction);         
+            Snake.AddBody(x, y, _direction);
         }
 
         public void GenerateBody()
@@ -61,7 +54,7 @@ namespace Snake.Game
             countEatedForSnail++;
             if (countEatedForSnail == 3)
             {
-                countEatedForSnail = 0;           
+                countEatedForSnail = 0;
                 GenerateSnail();
             }
         }
@@ -82,8 +75,8 @@ namespace Snake.Game
 
             while (true)
             {
-                x = rnd.Next(0, GameField.cRectanglesOnWidth);
-                y = rnd.Next(0, GameField.cRectanglesOnHeight);
+                x = rnd.Next(0, GameField.GetRectanglesOnWidth());
+                y = rnd.Next(0, GameField.GetRectanglesOnHeight());
 
                 if (GetGameInfo(x, y) == GameInfo.NaN)
                     break;
@@ -106,8 +99,8 @@ namespace Snake.Game
 
             while (true)
             {
-                x = rnd.Next(0, GameField.cRectanglesOnWidth);
-                y = rnd.Next(0, GameField.cRectanglesOnHeight);
+                x = rnd.Next(0, GameField.GetRectanglesOnWidth());
+                y = rnd.Next(0, GameField.GetRectanglesOnHeight());
 
                 if (GetGameInfo(x, y) == GameInfo.NaN)
                     break;
@@ -169,17 +162,17 @@ namespace Snake.Game
 
         }
 
-        
+
 
         public bool Update()
-        {           
+        {
             int x = Snake.GetHead().X;
             int y = Snake.GetHead().Y;
             Direction newDirection = Snake.GetHead().Facing;
 
             if (_direction == Direction.Up)
-            { 
-                y--; 
+            {
+                y--;
                 newDirection = Direction.Up;
             }
             if (_direction == Direction.Down)
@@ -206,7 +199,7 @@ namespace Snake.Game
         private bool Collision()
         {
             var newHeadPos = Snake.GetHead();
-            
+
             if (GameField.gameField[newHeadPos.X, newHeadPos.Y].Info == GameInfo.Apple)
             {
                 GenerateBody();
@@ -232,7 +225,7 @@ namespace Snake.Game
             {
                 return false;
             }
-            
+
 
             return true;
         }
@@ -244,12 +237,12 @@ namespace Snake.Game
             if (GameStatus)
             {
                 var tmpSnake = new Snake(Snake);
-                
+
 
                 Snake.UpDatePositions(x, y, direction);
-                
+
                 GameStatus = Collision();
-                
+
                 if (!GameStatus)
                 {
                     return false;
