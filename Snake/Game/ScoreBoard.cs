@@ -43,6 +43,11 @@ namespace Snake.Game
             LoadFromCsv();
         }
 
+        /// <summary>
+        /// Pridanie objektu triedy PlayerScore do tabulky skore
+        /// </summary>
+        /// <param name="name">meno hraca</param>
+        /// <param name="size">dosiahnute skore hraca</param>
         public void AddPlayerScore(string name, int size)
         {
             if (scoreBoard.Count > 39)
@@ -81,11 +86,14 @@ namespace Snake.Game
 
         private void LoadFromCsv()
         {
-            var scoreBoardCsv = File.ReadAllLines("ScoreBoard.txt");
-            for (int i = 1; i < scoreBoardCsv.Length; i++)
+            if (File.Exists("ScoreBoard.txt"))
             {
-                var splitedLine = scoreBoardCsv[i].Split(';');
-                AddPlayerScore(splitedLine[0], int.Parse(splitedLine[1]));
+                var scoreBoardCsv = File.ReadAllLines("ScoreBoard.txt");
+                for (int i = 1; i < scoreBoardCsv.Length; i++)
+                {
+                    var splitedLine = scoreBoardCsv[i].Split(';');
+                    AddPlayerScore(splitedLine[0], int.Parse(splitedLine[1]));
+                }
             }
         }
 

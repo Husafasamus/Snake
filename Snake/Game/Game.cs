@@ -122,6 +122,9 @@ namespace Snake.Game
             GameField.gameField[Enemy2.Place.X, Enemy2.Place.Y].SetToEnemy();
         }
 
+        /// <summary>
+        /// Aktualizovanie pozicie nepriatela.
+        /// </summary>
         public void UpdateEnemyPosition()
         {
 
@@ -163,7 +166,10 @@ namespace Snake.Game
         }
 
 
-
+        /// <summary>
+        /// Aktualizacia pozicie hadika
+        /// </summary>
+        /// <returns>stav hry true/false</returns>
         public bool Update()
         {
             int x = Snake.GetHead().X;
@@ -196,6 +202,10 @@ namespace Snake.Game
             return GameStatus;
         }
 
+        /// <summary>
+        /// Metoda, ktora kontroluje ci nastala kolizia
+        /// </summary>
+        /// <returns>true/false</returns>
         private bool Collision()
         {
             var newHeadPos = Snake.GetHead();
@@ -231,7 +241,13 @@ namespace Snake.Game
         }
 
 
-
+        /// <summary>
+        /// aktualizacia pozicie hadika
+        /// </summary>
+        /// <param name="x">x os</param>
+        /// <param name="y">y os</param>
+        /// <param name="direction">smerovanie hlavy hadika</param>
+        /// <returns>true/false</returns>
         private bool UpdateSnakePosition(int x, int y, Direction direction)
         {
             if (GameStatus)
@@ -239,7 +255,7 @@ namespace Snake.Game
                 var tmpSnake = new Snake(Snake);
 
 
-                Snake.UpDatePositions(x, y, direction);
+                Snake.UpdatePosition(x, y, direction);
 
                 GameStatus = Collision();
 

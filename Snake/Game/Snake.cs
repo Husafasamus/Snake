@@ -39,7 +39,14 @@ namespace Snake.Game
             _body.Add(new Position(x_lastAdd, y_lastAdd, dir_lastAdd));
         }
 
-        public void UpDatePositions(int newX, int newY, Direction direction)
+
+        /// <summary>
+        /// Aktualizovanie pozicie hadika
+        /// </summary>
+        /// <param name="newX">nova pozicia X pre hlavu hadika</param>
+        /// <param name="newY">nova pozicia Y pre hlavu hadika</param>
+        /// <param name="direction"></param>
+        public void UpdatePosition(int newX, int newY, Direction direction)
         {
             x_lastAdd = GetEnd().X;
             y_lastAdd = GetEnd().Y;

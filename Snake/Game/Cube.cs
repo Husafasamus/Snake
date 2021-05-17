@@ -6,9 +6,6 @@ namespace Snake.Game
 {
     public class Cube
     {
-
-        public const string HeadImage = "/snakeHead.jpg";
-
         public const int CubeWidth = 40;
         public const int CubeHeight = 40;
 
@@ -24,6 +21,10 @@ namespace Snake.Game
             Info = gameInfo;
         }
 
+        /// <summary>
+        /// Nastavenie obrazku hlavy hadika, podla smeru kam smeruje
+        /// </summary>
+        /// <param name="direction">smerovanie</param>
         public void SetSnakeHead(Direction direction)
         {
             Info = GameInfo.SnakeHead;
@@ -90,7 +91,6 @@ namespace Snake.Game
                 Height = CubeHeight,
 
             };
-
 
             headimage.Source = new BitmapImage(new Uri("/Game/Data/nan.jpg", UriKind.Relative));
 

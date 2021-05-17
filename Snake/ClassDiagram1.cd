@@ -1,77 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="Snake.Game.Position">
-    <Position X="8" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
-      <FileName>Game\Cube.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Snake.Game.Cube">
-    <Position X="8.25" Y="4" Width="1.5" />
+    <Position X="10.5" Y="10.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAIABAAAAEAAEAAJCIAQAAAQAAAAECAAAI=</HashCode>
       <FileName>Game\Cube.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Info" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Snake.Game.Enemy">
-    <Position X="5" Y="5" Width="1.5" />
+    <Position X="8" Y="11.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACAAAAAEAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
       <FileName>Game\Enemy.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Place" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Snake.Game.Snake">
-    <Position X="3" Y="8" Width="1.5" />
+  <Class Name="Snake.Game.SnakeGame">
+    <Position X="7.75" Y="4.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>BAAAABAAAAIIACAIAAAAAAQAAAAAAAAAAAAAAIAAGAA=</HashCode>
-      <FileName>Game\Snake.cs</FileName>
+      <HashCode>AAQgQgACEKAABAAIAAEgEoAAAAEIAACAABCIEAQEgAA=</HashCode>
+      <FileName>Game\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_direction" />
+      <Field Name="scoreBoard" />
+      <Property Name="Enemy" />
+      <Property Name="Enemy2" />
+      <Property Name="GameField" />
+      <Property Name="Snake" />
+      <Property Name="Snail" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Snake.Game.GameField">
+    <Position X="13.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEAAAAAAAAAgAAAAAAAAAAAEAIAAAIBQAAgAAAAAAA=</HashCode>
+      <FileName>Game\GameField.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake.Game.Snail">
-    <Position X="3.25" Y="5" Width="1.5" />
+  <Class Name="Snake.Game.Position">
+    <Position X="2.75" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
-      <FileName>Game\Snail.cs</FileName>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Game\Position.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Facing" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Snake.Game.PlayerScore">
-    <Position X="11" Y="0.5" Width="1.5" />
+    <Position X="4" Y="12.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAIABAA=</HashCode>
       <FileName>Game\ScoreBoard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Snake.Game.ScoreBoard">
-    <Position X="11" Y="3.5" Width="1.5" />
+    <Position X="3.5" Y="9" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAABEAAAAAIBAAAAAAAAAAAAAAAAgABA=</HashCode>
       <FileName>Game\ScoreBoard.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="scoreBoard" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Snake.Game.GameField">
-    <Position X="3.25" Y="0.5" Width="1.5" />
+  <Class Name="Snake.Game.Snail">
+    <Position X="4" Y="6.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>CAEAAAAAAAAAAAAAAAAAAAAAEAIAAAABQAAgAAAAAAA=</HashCode>
-      <FileName>Game\GameField.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAAA=</HashCode>
+      <FileName>Game\Snail.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Place" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Snake.Game.Snake">
+    <Position X="6.75" Y="0.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAABAAAAIIACAIAAAAAAQAAAAAAAAAAAAAAIAAGAA=</HashCode>
+      <FileName>Game\Snake.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="dir_lastAdd" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_body" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Snake.App" Collapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake.Game.SnakeGame">
-    <Position X="1.5" Y="0.5" Width="1.5" />
+  <Class Name="Snake.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQgQgACEKAABAAIAAEgEoAAAAEIAACAABCIEAQEgAA=</HashCode>
-      <FileName>Game\Game.cs</FileName>
+      <HashCode>AIIwgAAQBCAAHAAACAAAAAgQAAIIBAkowAIoASAJEAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Enum Name="Snake.Game.GameInfo">
-    <Position X="5.25" Y="2.5" Width="1.5" />
+    <Position X="8" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAIACAAABAAAAAAAAAAEAAAQAAAAAABgAAAA=</HashCode>
       <FileName>Game\Cube.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Snake.Game.Direction">
-    <Position X="1.25" Y="8" Width="1.5" />
+    <Position X="4.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
       <FileName>Game\Game.cs</FileName>

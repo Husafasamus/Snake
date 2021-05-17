@@ -34,7 +34,6 @@ namespace Snake
             Text = "name"
         };
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,13 +47,15 @@ namespace Snake
             ShowMenu();
         }
 
-
         private void ShowGameFieldStart()
         {
             game.Start();
             ShowGameField();
         }
 
+        /// <summary>
+        /// Vykreslenie hracieho pola.
+        /// </summary>
         private void ShowGameField()
         {
             ShowCounter();
@@ -70,6 +71,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Aktualizovanie hracieho pola.
+        /// </summary>
         private void RefreshGameField()
         {
             if (!game.Update())
@@ -88,6 +92,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// Aktualizovanie hracieho pola, pre nepriatelov.
+        /// </summary>
         private void RefreshGameFieldEnemys()
         {
             game.UpdateEnemyPosition();
@@ -149,8 +156,6 @@ namespace Snake
 
         private void AddBodySnake()
         {
-            //snakeTimerInterval -= 5;
-            //gameTimer.Interval = TimeSpan.FromMilliseconds(snakeTimerInterval);
             game.GenerateApple();
         }
 
@@ -227,6 +232,9 @@ namespace Snake
             ShowScoreBoard();
         }
 
+        /// <summary>
+        /// metoda pre zobrazenie tabulky skore.
+        /// </summary>
         private void ShowScoreBoard()
         {
             //GameField.Background = new SolidColorBrush(Color.FromArgb(255, 113, 172, 30));
@@ -288,6 +296,9 @@ namespace Snake
             ShowMenu();
         }
 
+        /// <summary>
+        /// Metoda pre zobrazenie game over menu.
+        /// </summary>
         private void ShowGameOver()
         {
             StackPanel gameOverPanel = new StackPanel();
@@ -363,6 +374,9 @@ namespace Snake
 
         }
 
+        /// <summary>
+        /// Metoda pre zobrazenie pause menu.
+        /// </summary>
         private void ShowPauseMenu()
         {
             StackPanel pausePanel = new StackPanel();
@@ -422,10 +436,9 @@ namespace Snake
             Canvas.SetTop(pausePanel, ((GameField.ActualHeight - pausePanel.ActualHeight) / 2) - 20);
         }
 
-
-
-        // TODO: Fix menu to center
-
+        /// <summary>
+        /// Metoda pre zobrazenie menu.
+        /// </summary>
         private void ShowMenu()
         {
             StackPanel menuPanel = new StackPanel();
@@ -485,8 +498,6 @@ namespace Snake
             Canvas.SetTop(menuPanel, ((GameField.ActualHeight - menuPanel.Height) / 2));
         }
 
-
-
         private void ShowCounter()
         {
             counter.Foreground = new SolidColorBrush(Colors.White);
@@ -494,9 +505,5 @@ namespace Snake
             Canvas.SetTop(counter, 0);
             Canvas.SetLeft(counter, 5);
         }
-
-
-
-
     }
 }
